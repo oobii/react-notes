@@ -1,8 +1,45 @@
-import React from 'react';
+import React, { useState } from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
-import App from './App';
 import reportWebVitals from './reportWebVitals';
+
+const App = (props) => {
+  const [title, setTitle] = useState('');
+  const [notes, setNotes] = useState([]);
+
+  const addNote = (event) => {
+    // prevent page refresh
+    event.preventDefault();
+
+    setNotes([...notes, title]);
+    setTitle('')
+  }
+
+  const removeNote = (noteToRemove) => {
+    setNotes(notes.filter((note) => (note !== noteToRemove)))
+  }
+
+return (
+  <div>
+    <form onSubmit={addNote}>
+      <input  value={title} onChange={(event) => {setTitle(event.target.value)}}>
+      </input>
+      <button>Add Note</button>
+    </form>
+    <h4>{
+      notes.map((note,i) => (
+    <>
+    <div key={i}>{note}<button onClick={() => removeNote(note)}>x</button></div>
+    
+    </>
+    ))}</h4>
+  </div>
+)
+
+}
+
+
+
 
 ReactDOM.render(
   <React.StrictMode>
