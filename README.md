@@ -1,2 +1,2 @@
 # React Notes Interface
-adding/removing notes 
+adding/removing notes using useState hook
