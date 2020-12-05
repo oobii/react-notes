@@ -1,12 +1,15 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
 import reportWebVitals from './reportWebVitals';
 
 const App = (props) => {
+  const notesData = JSON.parse(localStorage.getItem('notes'))
   const [title, setTitle] = useState('');
-  const [notes, setNotes] = useState([]);
+  const [notes, setNotes] = useState(notesData || []);
   const [body, setBody] = useState('');
+
+  useEffect(() => localStorage.setItem('notes', JSON.stringify(notes)))
 
   const addNote = (event) => {
     // prevent page refresh
@@ -22,7 +25,9 @@ const App = (props) => {
 
     ]);
 
-    setTitle(' ');
+    // clearning the input forms
+    setTitle('');
+    setBody('');
     //document.querySelector('#inputText').value = '';
   };
 
