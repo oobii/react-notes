@@ -60,18 +60,35 @@ const App = (props) => {
       </form>
       <h4>{
         notes.map((note, i) => (
-          <>
-            <p>{note.title}: {note.removed}, body: {note.body}</p>
-            {
-            <div key={i}> {note.title} 
-            <button onClick={() => removeNote(note)}>x</button>
-            </div> }
-
-          </>
-        ))}</h4>
+          <Note key={i} note={note} removeNote={removeNote}/>
+        )
+          
+        )}</h4>
     </div>
-  );
-};
+  )
+}
+
+// eslint-disable-next-line
+const Note = ({note, removeNote}) => {
+  
+  useEffect(() => {
+    console.log("Setting up effect!")
+
+    return () => console.log('Cleaning up the effect!')
+  },[note])
+
+  
+
+  return (
+    
+    <div>
+          { // eslint-disable-next-line
+          note.title}:{note.removed
+          }
+          <button onClick={(e) => removeNote(note)}>x</button>
+    </div>
+  )
+}
 
 
 ReactDOM.render(
