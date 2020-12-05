@@ -4,12 +4,20 @@ import './index.css';
 import reportWebVitals from './reportWebVitals';
 
 const App = (props) => {
-  const notesData = JSON.parse(localStorage.getItem('notes'))
   const [title, setTitle] = useState('');
-  const [notes, setNotes] = useState(notesData || []);
+  const [notes, setNotes] = useState([]);
   const [body, setBody] = useState('');
 
-  useEffect(() => localStorage.setItem('notes', JSON.stringify(notes)))
+  // This will run once with empty [] param
+  useEffect(() => {
+    const notesData = JSON.parse(localStorage.getItem('notes'));
+    if(notesData) {
+      setNotes(notesData);
+    }
+    
+  },[])
+  
+  useEffect(() => localStorage.setItem('notes', JSON.stringify(notes)),[notes])
 
   const addNote = (event) => {
     // prevent page refresh
